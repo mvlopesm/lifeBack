@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create results table
         Schema::create('results', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('animal_id')->constrained('animals');
+            $table->foreignId('exam_id')->constrained('exams');
+            $table->string('result');
             $table->timestamps();
         });
     }

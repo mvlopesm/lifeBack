@@ -7,12 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations.we
      */
     public function up(): void
     {
-        Schema::create('model_animals', function (Blueprint $table) {
+        Schema::create('animals', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('species');
+            $table->string('breed');
+            $table->integer('age');
+            $table->string('tutor');
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('model_animals');
+        Schema::dropIfExists('animals');
     }
 };
