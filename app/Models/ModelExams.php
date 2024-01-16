@@ -13,7 +13,7 @@ class ModelExams extends Model
 
     protected $fillable = ['name', 'exam_type_id'];
 
-    public function animal()
+    public function relAnimal()
     {
         return $this->belongsTo(ModelAnimals::class, 'animal_id');
     }
