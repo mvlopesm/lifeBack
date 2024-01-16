@@ -22,7 +22,8 @@ class AnimalsController extends Controller
      */
     public function index()
     {
-        //
+        $animals = $this->animalModel->all();
+        return response()->json($animals);
     }
 
     /**
@@ -38,7 +39,17 @@ class AnimalsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'species' => 'required|string',
+            'breed' => 'required|string',
+            'age' => 'required|integer',
+            'tutor' => 'required|string',
+        ]);
+
+        $animal = $this->animalModel->create($request->all());
+
+        return response()->json(['message' => 'Animal cadastrado', 'animal' => $animal], 201);
     }
 
     /**
@@ -46,7 +57,13 @@ class AnimalsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $animal = $this->animalModel->find($id);
+
+        if (!$animal) {
+            return response()->json(['message' => 'Animal não encontrado'], 404);
+        }
+
+        return response()->json($animal);
     }
 
     /**
@@ -62,14 +79,39 @@ class AnimalsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'string',
+            'species' => 'string',
+            'breed' => 'string',
+            'age' => 'integer',
+            'tutor' => 'string',
+        ]);
 
+        $animal = $this->animalModel->find($id);
+
+        if (!$animal) {
+            return response()->json(['message' => 'Animal não encontrado'], 404);
+        }
+
+        $animal->update($request->all());
+
+        return response()->json(['message' => 'Cadastro atualizado', 'animal' => $animal]);
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $animal = $this->animalModel->find($id);
+
+        if (!$animal) {
+            return response()->json(['message' => 'Animal não encontrado'], 404);
+        }
+
+        DB::transaction(function () use ($animal) {
+            $animal->delete();
+        });
+
+        return response()->json(['message' => 'Cadastro excluído']);
     }
 }
