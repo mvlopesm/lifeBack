@@ -11,10 +11,16 @@ class ModelResults extends Model
 
     protected $table = 'results';
 
-    protected $fillable = ['result', 'exam_id'];
+    protected $fillable = ['result'];
 
-    public function animal()
+    public function relAnimal()
     {
         return $this->belongsTo(ModelAnimals::class, 'animal_id');
     }
+
+    public function relExam()
+    {
+        return $this->belongsTo(ModelExams::class, 'exam_id');
+    }
 }
+

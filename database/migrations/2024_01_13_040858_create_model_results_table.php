@@ -14,8 +14,8 @@ return new class extends Migration
         // Create results table
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('animal_id')->constrained('animals');
-            $table->foreignId('exam_id')->constrained('exams');
+            $table->foreignId('animal_id')->constrained('animals')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade')->onUpdate('cascade');
             $table->string('result');
             $table->timestamps();
         });

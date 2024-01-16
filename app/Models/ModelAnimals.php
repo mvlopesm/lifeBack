@@ -13,12 +13,12 @@ class ModelAnimals extends Model
 
     protected $fillable = ['name', 'species', 'breed', 'age', 'tutor'];
 
-    public function exams()
+    public function relExams()
     {
         return $this->hasMany(ModelExams::class, 'animal_id');
     }
 
-    public function results()
+    public function relResults()
     {
         return $this->hasMany(ModelResults::class, 'animal_id');
     }
